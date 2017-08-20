@@ -6,10 +6,12 @@ package idv.carl.scjp.compare;
 public class Coupon {
 
     private int id;
+    private String campaignId;
     private String acquireStartTs;
     private String acquireEndTs;
     private String redeemStartTs;
     private String redeemEndTs;
+    private String discount;
 
     public static Coupon getInstance() {
         return new Coupon();
@@ -21,6 +23,15 @@ public class Coupon {
 
     public Coupon setId(int id) {
         this.id = id;
+        return this;
+    }
+
+    public String getCampaignId() {
+        return campaignId;
+    }
+
+    public Coupon setCampaignId(String campaignId) {
+        this.campaignId = campaignId;
         return this;
     }
 
@@ -60,9 +71,20 @@ public class Coupon {
         return this;
     }
 
+    public String getDiscount() {
+        return discount;
+    }
+
+    public Coupon setDiscount(String discount) {
+        this.discount = discount;
+        return this;
+    }
+
     @Override
     public String toString() {
-        return "Coupon{" + "id=" + id + ", acquireStartTs='" + acquireStartTs + '\'' + ", acquireEndTs='" + acquireEndTs + '\''
-                + ", redeemStartTs='" + redeemStartTs + '\'' + ", redeemEndTs='" + redeemEndTs + '\'' + '}';
+        return "Coupon{" + "id=" + id + ", campaignId='" + campaignId + '\'' + ", acquireStartTs='" + acquireStartTs + '\''
+                + ", acquireEndTs='" + acquireEndTs + '\'' + ", redeemStartTs='" + redeemStartTs + '\'' + ", redeemEndTs='"
+                + redeemEndTs + '\'' + ", discount='" + discount + '\'' + '}';
     }
+
 }
