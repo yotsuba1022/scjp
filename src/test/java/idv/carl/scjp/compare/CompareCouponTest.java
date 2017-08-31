@@ -1,6 +1,7 @@
 package idv.carl.scjp.compare;
 
 import idv.carl.scjp.domain.Coupon;
+import idv.carl.scjp.lambda.SupplierUtil;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -89,10 +90,17 @@ public class CompareCouponTest {
     }
 
     @Test
+    public void testFunctionPass() {
+        assertEquals("GUID", SupplierUtil.whenInvoke(SupplierUtil::getGuid));
+        assertEquals("SSOYID", SupplierUtil.whenInvoke(SupplierUtil::getSsoyid));
+    }
+
+    @Test
     public void testCompareDiscountAndCampaignIdWithMap() {
         createFixtureWithoutTimestamp();
         Map<Coupon, Double> couponDiscountMap =
                 coupons.stream().collect(Collectors.toMap(Function.identity(), coupon -> Double.valueOf(coupon.getDiscount())));
+
         List<Coupon> result = couponDiscountMap.entrySet()
                 .stream()
                 .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
@@ -100,8 +108,8 @@ public class CompareCouponTest {
                 .collect(Collectors.toList());
 
         assertEquals("3950", result.get(0).getCampaignId());
-        assertEquals("15023", result.get(1).getCampaignId());
-        assertEquals("5023", result.get(2).getCampaignId());
+        assertEquals("5023", result.get(1).getCampaignId());
+        assertEquals("15023", result.get(2).getCampaignId());
         assertEquals("27040", result.get(3).getCampaignId());
     }
 
