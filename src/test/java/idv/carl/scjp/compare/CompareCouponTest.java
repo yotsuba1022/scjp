@@ -1,15 +1,15 @@
 package idv.carl.scjp.compare;
 
+import idv.carl.scjp.domain.Coupon;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
 
@@ -86,6 +86,23 @@ public class CompareCouponTest {
         assertEquals("5023", coupons.get(1).getCampaignId());
         assertEquals("15023", coupons.get(2).getCampaignId());
         assertEquals("27040", coupons.get(3).getCampaignId());
+    }
+
+    @Test
+    public void testCompareDiscountAndCampaignIdWithMap() {
+        createFixtureWithoutTimestamp();
+        Map<Coupon, Double> couponDiscountMap =
+                coupons.stream().collect(Collectors.toMap(Function.identity(), coupon -> Double.valueOf(coupon.getDiscount())));
+        List<Coupon> result = couponDiscountMap.entrySet()
+                .stream()
+                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toList());
+
+        assertEquals("3950", result.get(0).getCampaignId());
+        assertEquals("15023", result.get(1).getCampaignId());
+        assertEquals("5023", result.get(2).getCampaignId());
+        assertEquals("27040", result.get(3).getCampaignId());
     }
 
     private void createFixture() throws InterruptedException {

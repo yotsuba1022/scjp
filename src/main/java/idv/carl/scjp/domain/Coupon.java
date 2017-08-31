@@ -1,4 +1,4 @@
-package idv.carl.scjp.compare;
+package idv.carl.scjp.domain;
 
 /**
  * @author Carl Lu
