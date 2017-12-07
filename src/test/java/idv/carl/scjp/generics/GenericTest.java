@@ -1,5 +1,6 @@
 package idv.carl.scjp.generics;
 
+import com.alibaba.fastjson.JSON;
 import idv.carl.scjp.generics.basics.*;
 import org.junit.Test;
 
@@ -98,6 +99,59 @@ public class GenericTest {
         assertEquals(Integer.valueOf(expectedInfoX), multiGenericInformation.getInfoX());
         assertEquals(Double.valueOf(expectedInfoY), multiGenericInformation.getInfoY());
         assertEquals(expectedInfo, multiGenericInformation.getInfo());
+    }
+
+    @Test
+    public void testGenericMethod() {
+        GenericMethodClass.staticGenericMethod("String");
+        GenericMethodClass genericMethodClass = new GenericMethodClass();
+        genericMethodClass.instanceGenericMethod("String");
+
+        /*
+         * Notice that if you want to use fast json, do not create a custom constructor,
+         * please only use getter/setter for set value for object.
+         * */
+
+        long expectedGroupId = 0L;
+        long expectedAdmin1Id = 1L;
+        long expectedAdmin2Id = 2L;
+
+        String expectedGroupName = "admin";
+        String expectedAdmin1Name = "admin1";
+        String expectedAdmin2Name = "admin2";
+
+        Group group = new Group();
+        group.setId(expectedGroupId);
+        group.setName(expectedGroupName);
+
+        User admin1 = new User();
+        admin1.setId(expectedAdmin1Id);
+        admin1.setName(expectedAdmin1Name);
+
+        User admin2 = new User();
+        admin2.setId(expectedAdmin2Id);
+        admin2.setName(expectedAdmin2Name);
+
+        group.addUser(admin1);
+        group.addUser(admin2);
+
+        String expectedJsonStringResult =
+                "{\"id\":0,\"name\":\"admin\",\"users\":[{\"id\":1,\"name\":\"admin1\"},{\"id\":2,\"name\":\"admin2\"}]}";
+        assertEquals(expectedJsonStringResult, JSON.toJSONString(group));
+
+        Group parsedGroup = GenericMethodClass.parseObject(expectedJsonStringResult, Group.class);
+        assertEquals(Long.valueOf(expectedGroupId), parsedGroup.getId());
+        assertEquals(expectedGroupName, parsedGroup.getName());
+        assertEquals(Long.valueOf(expectedAdmin1Id), parsedGroup.getUsers().get(0).getId());
+        assertEquals(expectedAdmin1Name, parsedGroup.getUsers().get(0).getName());
+        assertEquals(Long.valueOf(expectedAdmin2Id), parsedGroup.getUsers().get(1).getId());
+        assertEquals(expectedAdmin2Name, parsedGroup.getUsers().get(1).getName());
+
+        Integer intInputs[] = GenericMethodClass.parseGenericArray(1, 2, 3, 4, 5, 6);
+        assertEquals(6, intInputs.length);
+
+        String strInputs[] = GenericMethodClass.parseGenericArray("foo", "bar", "9487");
+        assertEquals(3, strInputs.length);
     }
 
 }
