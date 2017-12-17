@@ -58,7 +58,7 @@ public class SetTest {
     }
 
     @Test
-    public void testTreeSetDefaultOrdering() {
+    public void testTreeSetNaturalOrdering() {
         treeSet.add(student3);
         treeSet.add(student4);
         treeSet.add(student5);
@@ -104,7 +104,7 @@ public class SetTest {
     }
 
     @Test
-    public void testConvertHashSetToTreeSetAndVerifyByDefaultOrdering() {
+    public void testConvertHashSetToTreeSetAndVerifyByNaturalOrdering() {
         hashSet.add(student3);
         hashSet.add(student4);
         hashSet.add(student2);
