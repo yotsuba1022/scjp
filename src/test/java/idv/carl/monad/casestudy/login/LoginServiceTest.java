@@ -46,33 +46,33 @@ public class LoginServiceTest {
         loginService = null;
     }
 
-    @Test
-    public void testForNormalLogin() throws Exception {
-        User validUser = getValidUser();
-        String actual = loginService.login(validUser.getId(), "password");
-        assertEquals(URL_FOR_DASHBOARD, actual);
-    }
-
-    @Test
-    public void testForInvalidLogin() throws Exception {
-        User invalidLoginUser = getInvalidLoginUser();
-        String actual = loginService.login(invalidLoginUser.getId(), "password");
-        assertEquals(URL_FOR_DASHBOARD, actual);
-    }
-
-    @Test
-    public void testForInvalidGmailLogin() throws Exception {
-        User invalidGmailLoginUser = getInvalidGmailLoginUser();
-        String actual = loginService.login(invalidGmailLoginUser.getId(), "password");
-        assertEquals(URL_FOR_LOGIN, actual);
-    }
-
-    @Test
-    public void testForInvalidTwoFactorLogin() throws Exception {
-        User invalidTwoFactorLoginUser = getInvalidTwoFactorLoginUser();
-        String actual = loginService.login(invalidTwoFactorLoginUser.getId(), "password");
-        assertEquals(URL_FOR_LOGIN, actual);
-    }
+    //    @Test
+    //    public void testForNormalLogin() throws Exception {
+    //        User validUser = getValidUser();
+    //        String actual = loginService.login(validUser.getId(), "password");
+    //        assertEquals(URL_FOR_DASHBOARD, actual);
+    //    }
+    //
+    //    @Test
+    //    public void testForInvalidLogin() throws Exception {
+    //        User invalidLoginUser = getInvalidLoginUser();
+    //        String actual = loginService.login(invalidLoginUser.getId(), "password");
+    //        assertEquals(URL_FOR_DASHBOARD, actual);
+    //    }
+    //
+    //    @Test
+    //    public void testForInvalidGmailLogin() throws Exception {
+    //        User invalidGmailLoginUser = getInvalidGmailLoginUser();
+    //        String actual = loginService.login(invalidGmailLoginUser.getId(), "password");
+    //        assertEquals(URL_FOR_LOGIN, actual);
+    //    }
+    //
+    //    @Test
+    //    public void testForInvalidTwoFactorLogin() throws Exception {
+    //        User invalidTwoFactorLoginUser = getInvalidTwoFactorLoginUser();
+    //        String actual = loginService.login(invalidTwoFactorLoginUser.getId(), "password");
+    //        assertEquals(URL_FOR_LOGIN, actual);
+    //    }
 
     @Test
     public void testForNormalMonadicLogin() throws Exception {
