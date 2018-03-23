@@ -74,4 +74,32 @@ public class LoginServiceTest {
         assertEquals(URL_FOR_LOGIN, actual);
     }
 
+    @Test
+    public void testForNormalMonadicLogin() throws Exception {
+        User validUser = getValidUser();
+        String actual = loginService.monadicLogin(validUser.getId(), "password");
+        assertEquals(URL_FOR_DASHBOARD, actual);
+    }
+
+    @Test
+    public void testForInvalidMonadicLogin() throws Exception {
+        User invalidLoginUser = getInvalidLoginUser();
+        String actual = loginService.monadicLogin(invalidLoginUser.getId(), "password");
+        assertEquals(URL_FOR_DASHBOARD, actual);
+    }
+
+    @Test
+    public void testForInvalidGmailMonadicLogin() throws Exception {
+        User invalidGmailLoginUser = getInvalidGmailLoginUser();
+        String actual = loginService.monadicLogin(invalidGmailLoginUser.getId(), "password");
+        assertEquals(URL_FOR_LOGIN, actual);
+    }
+
+    @Test
+    public void testForInvalidTwoFactorMonadicLogin() throws Exception {
+        User invalidTwoFactorLoginUser = getInvalidTwoFactorLoginUser();
+        String actual = loginService.monadicLogin(invalidTwoFactorLoginUser.getId(), "password");
+        assertEquals(URL_FOR_LOGIN, actual);
+    }
+
 }
